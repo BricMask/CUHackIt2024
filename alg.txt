@@ -1,0 +1,5 @@
+Weekly Schedule Help:
+https://stackoverflow.com/questions/11270553/designing-a-dynamic-responsive-week-calendar
+
+Weekly Schedule Implementation:
+https://jsfiddle.net/dvirazulay/Lhe7C/
