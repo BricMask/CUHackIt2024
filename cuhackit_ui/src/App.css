@@ -5,6 +5,44 @@
   text-align: center;
 }
 
+:root {
+  --hr: 88px;
+  --day: 350px;
+}
+
+.fiftyMinClass {
+  position: absolute; 
+  top: var(--hr); 
+  left: var(--day);
+  width: 75px;
+  height: 44px;
+  background-color: rgba(0, 200, 255, 0.829);
+  z-index: 2;
+}
+
+.table {
+  position: relative;
+}
+.hourBlock {
+  position: absolute;
+  top: 88px;
+  left: 350px;
+  width: 75px;
+  height: 53px;
+  background-color: rgba(0, 200, 255, 0.829);
+  z-index: 2;
+}
+
+.seventyFiveMinClass {
+  position: absolute;
+  top: var(--hr); 
+  left: var(--day);
+  width: 75px;
+  height: 66px;
+  background-color: rgba(0, 200, 255, 0.829);
+  z-index: 2;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
