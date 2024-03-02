@@ -2,7 +2,7 @@ import json
 import Course
 import ratemyprofessor
 
-test_input = (r'{"requested_courses": ["TEST 1010", "TEST 1020", "TEST 1030", "TEST 1040", "TEST 1050"],'
+test_input = (r'{"requested_courses": ["CPSC 1010", "CPSC 1011", "GEOL 1010", "CPSC 2310", "CPSC 2120"],'
               '"traditional": "True",'
               '"rate": "False",'
               '"start": "9:00AM",'
@@ -147,10 +147,19 @@ def create_courses(course_json):
         course_num = int(req["course_num"])
         section_num = int(req["section_num"])
         days = req["days"]
-        start = req["start_time"]
-        end = req["end_time"]
         instructor = req["instructor"]
-        traditional = bool(req["traditional"])
+        traditional = req["traditional"]
+
+        schedule = req["schedule"]
+        schedule = schedule.split(' ')
+
+        start = schedule[1]
+        end = schedule[-1:]
+
+        if traditional == 'Traditional':
+            traditional = True
+        else:
+            traditional = False
 
         courses.append(Course.Course(course_code,course_num,section_num,days,start,end,instructor,traditional))
 
@@ -180,9 +189,8 @@ def convert_to_json(schedule):
 
 
 if __name__ == '__main__':
-    file = open()
-    best = get_best_schedule(test_input, test_courses)
-    # for i in best.courses:
-    #     print(f'{i.course_code} {i.course_num}')
+    file = open('course_data.json')
+    courses = json.load(file)
+    best = get_best_schedule(test_input, courses)
 
     print(json.dumps(best))
