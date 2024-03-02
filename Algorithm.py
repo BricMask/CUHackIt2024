@@ -156,9 +156,33 @@ def create_courses(course_json):
 
     return courses
 
+def convert_to_json(schedule):
+    courses = []
+
+    for s_course in schedule.courses:
+        course = {
+            'course_code': s_course.course_code,
+            'course_num': s_course.course_num,
+            'section_num': s_course.section_num,
+            'days': s_course.days,
+            'start_time': s_course.start_time,
+            'end_time': s_course.end_time,
+            'instructor': s_course.instructor,
+            'traditional': s_course.traditional,
+        }
+        courses.append(course)
+
+    schedule_json = {
+        'courses': courses
+    }
+
+    return schedule_json
+
 
 if __name__ == '__main__':
-    test()
+    file = open()
     best = get_best_schedule(test_input, test_courses)
-    for i in best.courses:
-        print(f'{i.course_code} {i.course_num}')
+    # for i in best.courses:
+    #     print(f'{i.course_code} {i.course_num}')
+
+    print(json.dumps(best))

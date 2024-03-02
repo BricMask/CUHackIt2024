@@ -1,4 +1,4 @@
-import ratemyprofessor
+# import ratemyprofessor
 
 class Course:
 
@@ -68,15 +68,15 @@ class Schedule:
         score = 0
         for day in days.keys():
             score += days[day]
-
-        school = ratemyprofessor.get_school_by_name("Clemson University")
-        rating =  ratemyprofessor.get_professor_by_school_and_name(school, "Kittelstad").rating
-
-        if rating:
-            rating = abs(rating - 5)
-        else:
-            rating = 2
-
-        score += 50 * rating
+        # for course in self.courses:
+        #     school = ratemyprofessor.get_school_by_name("Clemson University")
+        #     rating =  ratemyprofessor.get_professor_by_school_and_name(school, course.instructor[-1:]).rating
+        #
+        #     if rating:
+        #         rating = abs(rating - 5)
+        #     else:
+        #         rating = 2
+        #
+        #     score += 50 * rating
 
         return abs(score)
