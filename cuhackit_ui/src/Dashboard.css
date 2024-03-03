@@ -1,0 +1,19 @@
+.custom-background {
+    background-color: #f5f5f5; /* Light grey background */
+  }
+  
+  .custom-form {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-form .btn-primary, .custom-form .btn-danger {
+    margin-top: 0; /* Align button top with input field */
+  }
+  
+  .custom-form .btn-success {
+    width: 200px; /* Make submit button wider */
+  }
+  
