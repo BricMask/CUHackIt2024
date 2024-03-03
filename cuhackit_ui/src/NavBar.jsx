@@ -12,9 +12,6 @@ function NavBar() {
                 <Link className="nav-link" to="/">Dashboard</Link>
                 </li>
                 <li className="nav-item">
-                <Link className="nav-link" to="/add-class">Add Class</Link>
-                </li>
-                <li className="nav-item">
                 <Link className="nav-link" to="/display-classes">Display Classes</Link>
                 </li>
                 <li className="nav-item">

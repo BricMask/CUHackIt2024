@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Dashboard.css'; // Assuming your custom CSS is in Dashboard.css
 
-function Dashboard() {
+function App() {
   const [formData, setFormData] = useState({
     requested_courses: ["CPSC 2120"],
     traditional: "True",
@@ -10,6 +10,9 @@ function Dashboard() {
     end: "6:00PM",
     num: "5"
   });
+
+  const [resp, setResp] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (index, value) => {
     const newRequestedCourses = [...formData.requested_courses];
@@ -32,42 +35,36 @@ function Dashboard() {
     setFormData({ ...formData, [field]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
   
-    // Filter out empty courses
-    const filteredCourses = formData.requested_courses.filter(course => course.trim() !== "");
-  
-    // Validate time format and range
-    const timeFormatRegex = /^(7|8|9|10|11):[0-5][0-9](AM|PM)$|^(12:00PM|12:00AM|1[0-1]:[0-5][0-9]PM)$/;
-    const isValidStartTime = timeFormatRegex.test(formData.start);
-    const isValidEndTime = timeFormatRegex.test(formData.end);
-  
-    // Ensure start time is before end time
-    const convertTimeToMinutes = (time) => {
-      const [hour, minutePart] = time.split(':');
-      const minutes = parseInt(minutePart.slice(0, 2), 10);
-      const period = minutePart.slice(2);
-      let totalMinutes = parseInt(hour, 10) * 60 + minutes;
-      if (period === 'PM' && hour !== '12') totalMinutes += 12 * 60;
-      if (period === 'AM' && hour === '12') totalMinutes = minutes;
-      return totalMinutes;
-    };
-  
-    const startTimeMinutes = convertTimeToMinutes(formData.start);
-    const endTimeMinutes = convertTimeToMinutes(formData.end);
-  
-    if (startTimeMinutes >= endTimeMinutes) {
-      alert("Start time must be before End time.");
-      return;
+    setIsLoading(true);
+    console.log('Fetching data based on form submission...');
+    try {
+      const response = await fetch("/api", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          requested_courses: formData.requested_courses.filter(course => course.trim() !== "")
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      let data = await response.json();
+      console.log('Setting response data in state:', data);
+      setResp(JSON.parse(data)); 
+    } catch (error) {
+      console.error('There was a problem with your fetch operation:', error);
+    } finally {
+      setIsLoading(false);
     }
-  
-    // Update formData with filtered courses and proceed with submission
-    const updatedFormData = { ...formData, requested_courses: filteredCourses };
-    console.log(updatedFormData);
-    // Here you would typically send your updatedFormData to a backend server or similar
   };
-  
 
   return (
     <div className="container-fluid min-vh-100 mw-100 p-5 custom-background">
@@ -75,7 +72,7 @@ function Dashboard() {
         <div className="col-md-8">
           <h2 className="mb-4 text-center">Course Registration Form</h2>
           <form onSubmit={handleSubmit} className="custom-form">
-            {formData.requested_courses.map((course, index) => (
+          {formData.requested_courses.map((course, index) => (
               <div key={index} className="mb-3 d-flex align-items-center">
                 <input
                   type="text"
@@ -141,10 +138,27 @@ function Dashboard() {
               <button type="submit" className="btn btn-success">Submit</button>
             </div>
           </form>
+          <br></br>
+          {isLoading && <p>Loading...</p>}
+          {!isLoading && resp && (
+            <div>
+              <h2>Your Recommended Classes:</h2>
+                {resp.courses.map((course, index) => (
+                  <div key={index} className="card mb-3" style={{ width: '18rem' }}>
+                    <div className="card-body">
+                      <h5 className="card-title">{course.course_code} {course.course_num} - Section {course.section_num}</h5>
+                      <h6 className="card-subtitle mb-2 text-muted">{course.days} {course.start_time} - {course.end_time}</h6>
+                      <p className="card-text">Instructor: {course.instructor}</p>
+                      <p className="card-text">{course.traditional ? 'Traditional' : 'Online'}</p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-export default Dashboard;
+export default App;

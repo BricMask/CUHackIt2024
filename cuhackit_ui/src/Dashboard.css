@@ -16,4 +16,60 @@
   .custom-form .btn-success {
     width: 200px; /* Make submit button wider */
   }
-  
+
+  /* Dashboard.css */
+
+/* Existing styles */
+.container-fluid {
+  background-color: #f8f9fa; /* Light grey background for contrast */
+}
+
+.custom-form .form-control, .custom-form .form-select {
+  margin-bottom: 0.5rem; /* Consistent margin for form elements */
+}
+
+/* New styles for the response section */
+.response-section {
+  padding: 2rem 0; /* Add padding above and below the response section for separation */
+  background-color: #e9ecef; /* Slightly darker shade for the background to differentiate section */
+  border-top: 2px solid #dee2e6; /* Add a border top to clearly divide the form and the response section */
+}
+
+.response-section h2 {
+  color: #495057; /* Dark grey color for better readability */
+  margin-bottom: 1.5rem; /* Space between title and cards */
+}
+
+.card {
+  box-shadow: 0 4px 6px rgba(0,0,0,.1); /* Add shadow for depth */
+  margin-bottom: 2rem; /* Increase space between cards */
+  border-radius: .25rem; /* Soften corners */
+}
+
+.card-body {
+  padding: 1.25rem; /* Increase padding for content inside cards */
+}
+
+.card-title {
+  color: #007bff; /* Theme color for titles to stand out */
+}
+
+.card-text {
+  color: #343a40; /* Darker text color for contrast */
+}
+
+.card-subtitle {
+  color: #6c757d; /* Muted color for subtitles */
+}
+
+/* Loading and error messages */
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem; /* Larger font size for visibility */
+  color: #dc3545; /* Use red for error messages for attention */
+}
+
+.loading {
+  color: #007bff; /* Use theme color for loading messages */
+}

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import Dashboard from './Dashboard';
-import AddClass from './AddClass';
 import DisplayClasses from './DisplayClasses';
 import Login from './Login';
 import NotFound from './NotFound';
@@ -18,7 +17,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const routeConfig = {
   dashboard: { path: "/", component: Dashboard },
-  addClass: { path: "/add-class", component: AddClass },
   displayClasses: { path: "/display-classes", component: DisplayClasses },
   login: { path: "/login", component: Login },
   notFound: { path: "*", component: () => <Navigate to="/" replace /> }
