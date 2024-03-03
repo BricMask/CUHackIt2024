@@ -94,7 +94,7 @@ function DisplayClasses() {
             <TableRow>
               <TableCell>Time</TableCell>
               {weekdays.map(day => (
-                <TableCell key={day} align="right">{day}</TableCell>
+                <TableCell key={day} align="center">{day}</TableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -104,20 +104,20 @@ function DisplayClasses() {
                 key={row.hour}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                {/* <TableCell component="th" scope="row">
                   {row.hour}
                 </TableCell>
                 {weekdays.map((day) => (
                   <TableCell
                     key={day}
-                    align="right"
+                    align="center"
                     style={{
                       backgroundColor: courseMap[day] && courseMap[day][row.hour] ? courseMap[day][row.hour].color : "",
                     }}
                   >
                     {courseMap[day] && courseMap[day][row.hour] ? `${courseMap[day][row.hour].course_code} ${courseMap[day][row.hour].course_num} (${courseMap[day][row.hour].section_num})` : ""}
-                  </TableCell>
-                ))}
+                  </TableCell> */}
+                {/* ))} */}
               </TableRow>
             ))}
           </TableBody>
