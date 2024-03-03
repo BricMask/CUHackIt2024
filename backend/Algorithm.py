@@ -1,5 +1,6 @@
 import json
 import Course
+import argparse
 # import ratemyprofessor
 
 test_input = (r'{"requested_courses": ["CPSC 1010", "CPSC 1011", "GEOL 1010", "CPSC 2310", "CPSC 2120"],'
@@ -198,9 +199,14 @@ def convert_to_json(schedule):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input", help="input file")
+    parser.add_argument("output", help="output file")
+    args = parser.parse_args()
+
     openFile = open('course_data.json')
-    infile = open('input.json')
-    out = open('output.json', 'w')
+    infile = open(args.input)
+    out = open(args.output, 'w')
     courses = json.load(openFile)
     input = json.load(infile)
 
@@ -210,3 +216,6 @@ if __name__ == '__main__':
     best = get_best_schedule(input, courses)
 
     out.write(json.dumps(convert_to_json(best)))
+
+
+    args = parser.parse_args()
