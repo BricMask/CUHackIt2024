@@ -6,10 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-// Import Course component if needed for other purposes
-import Course from './Course'; // Make sure this import path is correct
-import courses from './courses.json';
-
+import coursesData from './courses.json';
 
 // Helper function to create row data
 function createData(hour, empty = null) {
@@ -18,56 +15,87 @@ function createData(hour, empty = null) {
 
 // Dummy data for table rows
 const rows = [
-  createData('7am'),
-  createData('8am'),
-  createData('9am'),
-  createData('10am'),
-  createData('11am'),
-  createData('12pm'),
-  createData('1pm'),
-  createData('2pm'),
-  createData('3pm'),
-  createData('4pm'),
-  createData('5pm'),
-  createData('6pm'),
-  createData('7pm'),
-  createData('8pm'),
-  createData('9pm'),
-  createData('10pm'),
-  createData('11pm'),
+  createData('7:00AM'),
+  createData('8:00AM'),
+  createData('9:00AM'),
+  createData('10:00AM'),
+  createData('11:00AM'),
+  createData('12:00PM'),
+  createData('1:00PM'),
+  createData('2:00PM'),
+  createData('3:00PM'),
+  createData('4:00PM'),
+  createData('5:00PM'),
+  createData('6:00PM'),
+  createData('7:00PM'),
+  createData('8:00PM'),
+  createData('9:00PM'),
+  createData('10:00PM'),
+  createData('11:00PM'),
 ];
 
-function getRandomColor() {
-  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+function getColor(courseCode, instructor, sectionNumber) {
+  // Combine course code, instructor name, and section number
+  const combinedString = courseCode + instructor + sectionNumber;
+
+  // Hashing based on combined string
+  let hash = 0;
+  for (let i = 0; i < combinedString.length; i++) {
+    hash = combinedString.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  // Additional calculations based on hash
+  const r = (hash & 0xFF0000) >> 16;
+  const g = (hash & 0x00FF00) >> 8;
+  const b = hash & 0x0000FF;
+
+  // Convert to hex color
+  const color = `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
+
+  return color;
+}
+
+function mapDayCodeToName(dayCode) {
+  const dayMap = {
+    'M': 'Monday',
+    'T': 'Tuesday',
+    'W': 'Wednesday',
+    'R': 'Thursday',
+    'F': 'Friday'
+  };
+
+  return dayCode.split('').map(code => dayMap[code]);
 }
 
 function DisplayClasses() {
   // Mapping courses to their times and days
   const courseMap = {};
-  courses.forEach(course => {
-    if (!courseMap[course.day]) {
-      courseMap[course.day] = {};
-    }
-    courseMap[course.day][course.startTime] = {
-      ...course,
-      color: getRandomColor(), // Assign a random color to each course
-    };
+  coursesData.courses.forEach(course => {
+    const days = mapDayCodeToName(course.days); // Get array of full day names
+    days.forEach(day => {
+      if (!courseMap[day]) {
+        courseMap[day] = {};
+      }
+      courseMap[day][course.start_time] = {
+        ...course,
+        color: getColor(course.course_code, course.instructor, course.section_num), // Assign a color based on instructor name
+      };
+    });
   });
+
+  const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
   return (
     <div className="container-fluid min-vh-100 mw-100">
       <h2>Display Classes</h2>
-      <Course /> {/* Render the Course component */}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Time</TableCell>
-              <TableCell align="right">Monday</TableCell>
-              <TableCell align="right">Tuesday</TableCell>
-              <TableCell align="right">Wednesday</TableCell>
-              <TableCell align="right">Thursday</TableCell>
-              <TableCell align="right">Friday</TableCell>
+              {weekdays.map(day => (
+                <TableCell key={day} align="right">{day}</TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -79,7 +107,7 @@ function DisplayClasses() {
                 <TableCell component="th" scope="row">
                   {row.hour}
                 </TableCell>
-                {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map((day) => (
+                {weekdays.map((day) => (
                   <TableCell
                     key={day}
                     align="right"
@@ -87,7 +115,7 @@ function DisplayClasses() {
                       backgroundColor: courseMap[day] && courseMap[day][row.hour] ? courseMap[day][row.hour].color : "",
                     }}
                   >
-                    {courseMap[day] && courseMap[day][row.hour] ? `${courseMap[day][row.hour].className} (${courseMap[day][row.hour].courseNumber})` : ""}
+                    {courseMap[day] && courseMap[day][row.hour] ? `${courseMap[day][row.hour].course_code} ${courseMap[day][row.hour].course_num} (${courseMap[day][row.hour].section_num})` : ""}
                   </TableCell>
                 ))}
               </TableRow>

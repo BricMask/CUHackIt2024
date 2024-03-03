@@ -1,73 +1,54 @@
-[
+{
+  "courses": [
     {
-      "className": "Math 101",
-      "courseNumber": "M101",
-      "startTime": "9am",
-      "endTime": "10am",
-      "day": "Monday"
+      "course_code": "CPSC",
+      "course_num": 1011,
+      "section_num": 1,
+      "days": "TR",
+      "start_time": "8:00AM",
+      "end_time": "8:50AM",
+      "instructor": "Catherine Kittelstad",
+      "traditional": true
     },
     {
-      "className": "Physics 201",
-      "courseNumber": "P201",
-      "startTime": "10am",
-      "endTime": "11am",
-      "day": "Monday"
+      "course_code": "CPSC",
+      "course_num": 2310,
+      "section_num": 1,
+      "days": "MWF",
+      "start_time": "9:05AM",
+      "end_time": "9:55AM",
+      "instructor": "Yvon Feaster",
+      "traditional": true
     },
     {
-      "className": "Chemistry 301",
-      "courseNumber": "C301",
-      "startTime": "11am",
-      "endTime": "12pm",
-      "day": "Monday"
+      "course_code": "CPSC",
+      "course_num": 1010,
+      "section_num": 1,
+      "days": "MWF",
+      "start_time": "8:00AM",
+      "end_time": "8:50AM",
+      "instructor": "Catherine Kittelstad",
+      "traditional": true
     },
     {
-      "className": "Biology 401",
-      "courseNumber": "B401",
-      "startTime": "12pm",
-      "endTime": "1pm",
-      "day": "Monday"
+      "course_code": "CPSC",
+      "course_num": 2120,
+      "section_num": 2,
+      "days": "TR",
+      "start_time": "12:30PM",
+      "end_time": "1:45PM",
+      "instructor": "Ran Xu",
+      "traditional": true
     },
     {
-      "className": "English 101",
-      "courseNumber": "E101",
-      "startTime": "1pm",
-      "endTime": "2pm",
-      "day": "Wednesday"
-    },
-    {
-      "className": "History 201",
-      "courseNumber": "H201",
-      "startTime": "2pm",
-      "endTime": "3pm",
-      "day": "Wednesday"
-    },
-    {
-      "className": "Geography 301",
-      "courseNumber": "G301",
-      "startTime": "3pm",
-      "endTime": "4pm",
-      "day": "Wednesday"
-    },
-    {
-      "className": "Art 101",
-      "courseNumber": "A101",
-      "startTime": "4pm",
-      "endTime": "5pm",
-      "day": "Friday"
-    },
-    {
-      "className": "Music 201",
-      "courseNumber": "M201",
-      "startTime": "5pm",
-      "endTime": "6pm",
-      "day": "Friday"
-    },
-    {
-      "className": "Philosophy 101",
-      "courseNumber": "P101",
-      "startTime": "6pm",
-      "endTime": "7pm",
-      "day": "Friday"
+      "course_code": "GEOL",
+      "course_num": 1010,
+      "section_num": 2,
+      "days": "TR",
+      "start_time": "11:00AM",
+      "end_time": "12:15PM",
+      "instructor": "Alan Coulson",
+      "traditional": true
     }
   ]
-  
+}
