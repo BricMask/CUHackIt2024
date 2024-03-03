@@ -3,7 +3,7 @@ from flask_algo_v1.algo import Algorithm
 
 app = Flask(__name__)
 
-@app.route('/process', methods=['POST'])
+@app.route('/api', methods=['POST'])
 def process_request():
     # Parse the JSON payload
     data = request.get_json()
