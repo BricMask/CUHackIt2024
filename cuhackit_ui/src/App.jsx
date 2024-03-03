@@ -43,6 +43,7 @@ function App() {
           console.log(doc.id, " => ", doc.data()); 
           classes.push({ id: doc.id, ...doc.data() });
         });
+        console.log('Collection classes:', classes);
 
         setClassesList(classes); 
       } catch (error) {
