@@ -78,21 +78,3 @@
 .read-the-docs {
   color: #888;
 }
-
-html, body, head {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.container-fluid {
-  flex: 1; 
-  padding-top: 1rem; 
-}
-

@@ -104,7 +104,7 @@ function DisplayClasses() {
                 key={row.hour}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                {/* <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row">
                   {row.hour}
                 </TableCell>
                 {weekdays.map((day) => (
@@ -112,12 +112,12 @@ function DisplayClasses() {
                     key={day}
                     align="center"
                     style={{
-                      backgroundColor: courseMap[day] && courseMap[day][row.hour] ? courseMap[day][row.hour].color : "",
+                      backgroundColor: "",
                     }}
                   >
-                    {courseMap[day] && courseMap[day][row.hour] ? `${courseMap[day][row.hour].course_code} ${courseMap[day][row.hour].course_num} (${courseMap[day][row.hour].section_num})` : ""}
-                  </TableCell> */}
-                {/* ))} */}
+                    {""}
+                  </TableCell>
+                 ))}
               </TableRow>
             ))}
           </TableBody>
