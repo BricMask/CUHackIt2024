@@ -1,5 +1,5 @@
 {
-  "requested_courses": ["CPSC 1010", "CPSC 1011", "GEOL 1010", "CPSC 2310", "CPSC 2120"],
+  "requested_courses": ["CPSC 3120", "CPSC 1011", "GEOL 1010", "CPSC 2310", "CPSC 2120"],
   "traditional": "True",
   "rate": "False",
   "start": "9:00AM",

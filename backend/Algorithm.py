@@ -1,6 +1,6 @@
 import json
 import Course
-import argparse
+
 # import ratemyprofessor
 
 test_input = (r'{"requested_courses": ["CPSC 1010", "CPSC 1011", "GEOL 1010", "CPSC 2310", "CPSC 2120"],'
@@ -36,9 +36,7 @@ def parse_input(req):
 
     return requested_courses, traditional, rate, start, end, num
 
-def get_possible_courses(input, courses):
-    requested_courses, traditional, rate, start, end, credits_req = parse_input(test_input)
-
+def get_possible_courses(courses, requested_courses, traditional, rate, start, end, credits_req):
     possible_courses = []
 
     for requested_course in requested_courses:
@@ -53,15 +51,14 @@ def get_possible_courses(input, courses):
 
 def create_combos(input, courses):
     requested_courses, traditional, rate, start, end, num = parse_input(input)
-    possible_courses = get_possible_courses(input, courses)
+    possible_courses = get_possible_courses(courses, requested_courses, traditional, rate, start, end, num)
 
     combos = []
 
     for i in range(len(possible_courses[:-1])):
         f_course = possible_courses[i]
         for s_course in possible_courses[i + 1:]:
-            if not (f_course.course_code == s_course.course_code and f_course.course_num == s_course.course_num):
-                combos.append([f_course, s_course])
+            combos.append([f_course, s_course])
 
     temp_combos = []
 
@@ -80,24 +77,26 @@ def create_combos(input, courses):
         combos = temp_combos
         temp_combos = []
 
-        [sorted(combo, key= lambda x: x.course_code) for combo in combos]
-
+    # for n in range(num - 2):
+    #     for i in range(len(possible_courses)):
+    #         f_course = possible_courses[i]
+    #         for s_course in combos:
+    #             s_course.append(f_course)
     i = 0
+    while i < len(combos):
+        combo = combos[i]
+        combo.sort(key=lambda x: x.course_num)
+        combos, i = find_duplicates(combo, combos, i)
+
+    i, k = 0, 0
     while i < len(combos) - 1:
-        passed = False
-        while not passed and i < len(combos) - 1:
-            for n in range(num):
-                if combos[i][n].course_code == combos[i + 1][n].course_code and combos[i][n].course_num == combos[i + 1][n].course_num:
-                    pass
-                else:
-                    passed = True
-            if not passed:
-                combos.remove(combos[i + 1])
-
-        i += 1
-
-
-
+        while k < len(combos) - 1:
+            for n in range(len(combos[0])):
+                    if combos[i][n] != combos[k][n] or k == n:
+                        i += 1
+                        k += 1
+                        break
+            combos.remove(combos[k])
 
 
 
@@ -198,15 +197,10 @@ def convert_to_json(schedule):
     return schedule_json
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("input", help="input file")
-    parser.add_argument("output", help="output file")
-    args = parser.parse_args()
-
+def run_algorithm(input, output):
     openFile = open('course_data.json')
-    infile = open(args.input)
-    out = open(args.output, 'w')
+    infile = open(input)
+    out = open(output, 'w')
     courses = json.load(openFile)
     input = json.load(infile)
 
@@ -217,5 +211,4 @@ if __name__ == '__main__':
 
     out.write(json.dumps(convert_to_json(best)))
 
-
-    args = parser.parse_args()
+    return convert_to_json(best)
